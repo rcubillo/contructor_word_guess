@@ -9,15 +9,12 @@
 
 //   * A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
-class Letter {
-    constructor(guessedLetter, input) {
+function Letter (guessedLetter, input) {
         this.userGuess = guessedLetter;
         this.input = input;
         this.guessed = false;
-    }
-
-    letterPrinter() {
-        if (this.userGuess.toUpperCase() === this.input.toUpperCase()) {
+        this.letterPrinter = function (){
+  if (this.userGuess.toUpperCase() === this.input.toUpperCase()) {
             return this.input + " ";
         }
 
@@ -28,18 +25,17 @@ class Letter {
         if (this.userGuess.toUpperCase() != this.input.toUpperCase()) {
             return "_  ";
         }
-    }
 
-    letterChecker() {
-        if (this.userGuess === this.input) {
+        };
+      this.letterChecker = function () {
+         if (this.userGuess === this.input) {
             this.guessed = true;
             return this.guessed;
         }
         else {
             return this.guessed;
         }
-
+        };
     }
-}
 
 module.exports = Letter;

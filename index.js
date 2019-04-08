@@ -1,32 +1,40 @@
-let Word = require("./word");
-let inquirer = require("inquirer");
+// * **index.js**: The file containing the logic for the course of the game, which depends on `Word.js` and:
 
-let cakes = ["CARROT", "CHIFFON", "CHEESECAKE", "RED VELVET", "TRES LECHES","GERMAN CHOCOLATE"];
-let indexNum = Math.floor(Math.random() * cakes.length);
+//   * Randomly selects a word and uses the `Word` constructor to store it
 
-let guessCake = new Word(cakes[5]);
+//   * Prompts the user for each guess and keeps track of the user's remaining guesses
 
+// 3. `Letter.js` *should not* `require` any other files.
 
+// 4. `Word.js` *should only* require `Letter.js`
 
+var word = require("./word");
+var inquirer = requirer ("inquirer");
 
-function guessALetterPrompt () {
+var random = ["HOUSE", "KITCHEN", "JAVASCRIPT", "NETFLIX", "TREE", "EXPRESS"]
 
-    inquirer.prompt([
+var indexing = Math.floor(Math.random() * random.length);
+
+let guessRandom = new word(random[5]);
+
+function prompting( ){
+// Create a "Prompt" with a series of questions.
+inquirer
+  .prompt([
+    // Here we create a basic text prompt.
     {
-        name: "guess",
-        message: "Guess a letter!"
-    }
+      type: "input",
+      message: "Guess a letter!",
+      name: "guess"
+    },
 ]).then(function(userinput) {
-
-    guessCake.wordAsString(userinput.guess);
-
+    guessRandom.wordAsString(userinput.guess);
 });
-
 }
 
 function correctGuess() {
     console.log("Correct!");
-    guessALetterPrompt();
+    prompting();
 }
 
-guessALetterPrompt();
+prompting();
