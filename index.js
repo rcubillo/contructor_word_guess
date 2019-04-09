@@ -9,13 +9,13 @@
 // 4. `Word.js` *should only* require `Letter.js`
 
 //This file depends on the Word.js file which gives us the Word constructor
-let Word = require("./Word.js");
+var Word = require("./Word.js");
 
 //Going to use the Inquirer.js NPM to get the user's input.
-let inquire = require("inquirer");
+var inquire = require("inquirer");
 
 //Our list of words that will be randomly picked.
-const wordArray = ["SEPHIROTH", "KEFKA", "CLOUD", "TIDUS", "SEYMOUR", "CHOCOBO", "MATERIA", "ULTIMATE WEAPON"]
+const container = ["NETFLIX", "JAVASCRIPT", "PIG"];
 
 //We only want letters as input. No special characters, empty spaces, or numbers.
 const letters = /[a-zA-Z]/;
@@ -28,7 +28,7 @@ let numGuesses;
 //This function creates a new game with a new word.
 function playGame() {
 
-    let newWord = wordArray[Math.floor(Math.random() * wordArray.length)]
+    let newWord = container[Math.floor(Math.random() * container.length)]
     //First we pick our new word randomly from the word array
     let word = new Word(newWord);
 
@@ -59,7 +59,7 @@ function guessWord(guess, actual) {
     inquire.prompt([
         {
             name: "guessLetter",
-            message: "Pick a letter.",
+            message: "? Guess a letter!",
             validate: function validateLetter(name) {
                 if (!name.match(letters)) {
                     return "Please pick a letter only.";
@@ -90,9 +90,9 @@ function guessWord(guess, actual) {
         }
         else{
             console.log("");
-            console.log("Incorrect!");
+            console.log("INCORRECT!!!");
             numGuesses--;
-            console.log(`You have ${numGuesses} tries remaining.`)
+            console.log(`${numGuesses} guesses remaining.`)
         }
 
         //If the word is not fully guessed and the player still has tries available, then the function asks for another letter
@@ -118,24 +118,24 @@ function guessWord(guess, actual) {
                 console.log("");
             };
 
-            //Then ask if the user wants to play again.
-            inquire.prompt([
-                {
-                    type: "confirm",
-                    name: "playAgain",
-                    message: "Would you like to play again?",
-                    default: true
-                }
-            ]).then(function(answer){
-                //If yes, a new game starts.
-                if(answer.playAgain){
-                    playGame();
-                }
-                //If not, the program stops.
-                else{
-                    process.exit();
-                }
-            });
+            // //Then ask if the user wants to play again.
+            // inquire.prompt([
+            //     {
+            //         type: "confirm",
+            //         name: "playAgain",
+            //         message: "Would you like to play again?",
+            //         default: true
+            //     }
+            // ]).then(function(answer){
+            //     //If yes, a new game starts.
+            //     if(answer.playAgain){
+            //         playGame();
+            //     }
+            //     //If not, the program stops.
+            //     else{
+            //         process.exit();
+            //     }
+            // });
         };
     });
 };
