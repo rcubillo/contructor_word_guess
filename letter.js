@@ -9,33 +9,26 @@
 
 //   * A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
-function Letter (guessedLetter, input) {
-        this.userGuess = guessedLetter;
-        this.input = input;
-        this.guessed = false;
-        this.letterPrinter = function (){
-  if (this.userGuess.toUpperCase() === this.input.toUpperCase()) {
-            return this.input + " ";
+// Contructor letter
+function Letter (letter){
+    this.letter = letter;
+    this.guessed = false;
+    //method checks the 'guessed' property and returns either an _ or letter based on the 'guessed' value
+    this.displayLetter = function(){
+        if(this.guessed){
+            return this.letter + " ";
         }
-
-        if (this.input == " ") {
-            return "  ";
-        }
-
-        if (this.userGuess.toUpperCase() != this.input.toUpperCase()) {
-            return "_  ";
-        }
-
+        else{
+            return "_ ";
         };
-      this.letterChecker = function () {
-         if (this.userGuess === this.input) {
+    };
+    //if the guessed letter matches the 'letter' value, then we change the 'guessed' value of the Letter object to 'true'.
+    this.checkGuess = function(guess){
+        if(guess === this.letter){
             this.guessed = true;
-            return this.guessed;
         }
-        else {
-            return this.guessed;
-        }
-        };
-    }
+    };
+};
 
+//Exporting the constructor to the Word.js file.
 module.exports = Letter;

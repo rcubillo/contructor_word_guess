@@ -6,30 +6,52 @@
 
 //   * A function that takes a character as an argument and calls the guess function on each letter object (the second function defined in `Letter.js`)
 
-var Letter = require("./letter");
+//This file requires access to the Letter.js file
+var Letter = require("./Letter.js");
 
-function Word(word) {
-    this.word = word.split("");
-    this.string = "";
-    this.wordAsString = function (userinput){
-        for (let i = 0; i < this.word.length; i++) {
-            let newLetter = new Letter(userinput, this.word[i]);
-            this.string += " " + newLetter.letterPrinter();
+//Our word constructor
+function Word (word){
+
+    //Each Word constructor creates an array of Letter objects for each letter in the word.
+    this.lettersArr = [];
+
+    for(let i=0; i < word.length; i++){
+        if(word.charAt(i) === " "){
+            this.lettersArr.push(" ");
         }
-        console.log(this.string);
+        else{
+            this.lettersArr.push(new Letter(word.charAt(i)));
+        };
     };
 
-    this.wordLetterChecker = function (userinput){
-        for (let i = 0; i < this.word.length; i++) {
-            let newLetter = new Letter(userinput, this.word[i]);
-            this.string += " " + newLetter.letterChecker();
-        }
-        console.log(this.string);
+    //Method that utilizes the displayLetter() method in each Letter object in the Word object and returns
+    //what the user will see in the game based on which letters are guessed correctly in the hidden word.
+    this.createString = function(){
+        var wordString = "";
 
+        this.lettersArr.forEach(function(element){
+           if(element === " "){
+               wordString += "  ";
+           }
+           else{
+               wordString += element.displayLetter();
+           }
+        });
+        return wordString;
+    }
+
+
+    //When a letter is guessed, the Word object checks each Letter object in its array and changes the guessed value to true
+    //if the letter is correct.
+    this.checkGuessWord = function(letterGuess){
+        this.lettersArr.forEach(function(element){
+
+            if(element.letter !== undefined){
+                element.checkGuess(letterGuess);
+            }
+        });
     };
 };
 
-// let newWord = new Word("Pudding");
-// newWord.wordAsString();
-
+//Will be exporting the Word object to index.js
 module.exports = Word;
