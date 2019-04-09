@@ -8,14 +8,14 @@
 
 // 4. `Word.js` *should only* require `Letter.js`
 
-var word = require("./word");
-var inquirer = requirer ("inquirer");
+var Word = require("./word");
+var inquirer = require("inquirer");
 
 var random = ["HOUSE", "KITCHEN", "JAVASCRIPT", "NETFLIX", "TREE", "EXPRESS"]
 
 var indexing = Math.floor(Math.random() * random.length);
 
-let guessRandom = new word(random[5]);
+let guessRandom = new Word(random[5]);
 
 function prompting( ){
 // Create a "Prompt" with a series of questions.
