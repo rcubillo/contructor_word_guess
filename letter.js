@@ -13,7 +13,7 @@
 function Letter (letter){
     this.letter = letter;
     this.guessed = false;
-    //method checks the 'guessed' property and returns either an _ or letter based on the 'guessed' value
+    //returns either an _ or letter based on the 'guessed' value.
     this.displayLetter = function(){
         if(this.guessed){
             return this.letter + " ";

@@ -8,61 +8,54 @@
 
 // 4. `Word.js` *should only* require `Letter.js`
 
-//This file depends on the Word.js file which gives us the Word constructor
+//This file depends of word.fs
 var Word = require("./Word.js");
 
-//Going to use the Inquirer.js NPM to get the user's input.
+//// Load the NPM Package inquirer
 var inquire = require("inquirer");
 
-//Our list of words that will be randomly picked.
-const container = ["NETFLIX", "JAVASCRIPT", "PIG"];
+//Array with words to guess.
+var container = ["netflix", "javascript", "pig", "vanderbilt university"];
 
-//We only want letters as input. No special characters, empty spaces, or numbers.
-const letters = /[a-zA-Z]/;
+// Regular expressions (Only letters).
+var letters = /[a-zA-Z]/;
+
+// Using this variable to initialize the number of tries.
+var numGuesses;
 
 
-//The number of incorrect tries the player gets to have. We will initialize this value in the playGame() function so it can be set
-//to 10 when a new game starts.
-let numGuesses;
-
-//This function creates a new game with a new word.
 function playGame() {
 
-    let newWord = container[Math.floor(Math.random() * container.length)]
-    //First we pick our new word randomly from the word array
-    let word = new Word(newWord);
+    var newWord = container[Math.floor(Math.random() * container.length)]
+    //Picking new random word from the array.
+    var word = new Word(newWord);
 
-    //The user gets 10 incorrect tries before the game is over.
-    numGuesses = 10;
+    //Giving the user 7 tries before the game over.
+    numGuesses = 7;
 
     //Now we execute the game based on the word.
     guessWord(word, newWord);
-
-
 };
 
-//The meat of our game. This function handles everything the game should do to take a word, display it as blanks, have the user guess,
-//indicate if the guess is correct or not, etc etc. This function will call itself over and over until either the word is guessed
-//or the user runs out of incorrect attempts.
+
 function guessWord(guess, actual) {
 
-    let letterWordArr = [];
+    var letterWordArr = [];
     //This array will be used to store boolean values for each letter to see if everything has been guessed correctly
-    let guessArr = [];
+    var guessArr = [];
 
-    //Shows the word being guessed, initially as underscores. The underscores will be replaced by letters when they are guessed
-    console.log("");
-    console.log(guess.createString());
-    console.log("");
+    //Shows the word being guessed as underscores.
+    console.log('\n', guess.createString());
 
-    //Ask for the letter and only letters. We do not want to accept special characters, numbers, or empty spaces.
+
     inquire.prompt([
         {
             name: "guessLetter",
-            message: "? Guess a letter!",
+            message: "Guess a letter!",
+
             validate: function validateLetter(name) {
                 if (!name.match(letters)) {
-                    return "Please pick a letter only.";
+                    return "Only letters please! if you don't get it, play monopoly or something else.";
                 }
                 else{
                     return true;
@@ -70,10 +63,8 @@ function guessWord(guess, actual) {
             }
         }
     ]).then(function (answer) {
-
-        //Converts input to upper case to make things easier to compare. Then we use the constructor methods from Word.js to see if
-        //the letter is in the word being guessed.
-        guess.checkGuessWord(answer.guessLetter.toUpperCase());
+        //Converting input to upper case, using the checkGuessWord to see if the letter is in the word selected.
+        guess.checkGuessWord(answer.guessLetter.toLowerCase());
 
         //We want to get the boolean value for each Letter object in the Word so we can see if there are any false values. If there are
         //then the word is still being guessed on. Also, we want to get all the letters in the word so that we can see if the letter
@@ -84,61 +75,32 @@ function guessWord(guess, actual) {
             guessArr.push(element.guessed);
         });
 
-        if(letterWordArr.indexOf(answer.guessLetter.toUpperCase()) > -1){
-            console.log("")
-            console.log("CORRECT!!!");
+        if(letterWordArr.indexOf(answer.guessLetter.toLowerCase()) > -1){
+            console.log("\n CORRECT!!!");
         }
         else{
-            console.log("");
-            console.log("INCORRECT!!!");
+            console.log("\n INCORRECT!!!");
             numGuesses--;
             console.log(`${numGuesses} guesses remaining.`)
         }
 
-        //If the word is not fully guessed and the player still has tries available, then the function asks for another letter
-        //by calling itself
+        // If user has tries, the function will keep asking for another letter.
         if (guessArr.indexOf(false) > -1 && numGuesses > 0) {
             guessWord(guess, actual);
         }
-        //Otherwise, we need to indicate if the user won or lost
+         //At the end of the game, show if the user won or lose. And the word.
         else {
-            //Show the correct word whether the user won or lost
-
-
             if (numGuesses === 0) {
-                console.log("");
-                console.log("You lose.");
-                console.log(`The word was ${actual}!`);
-                console.log("");
+                console.log("\n You lose!");
+                console.log(`\n The word was ${actual}!`);
             }
             else {
-                console.log("");
-                console.log("You did it!");
-                console.log(`The word was ${actual}`);
-                console.log("");
+                console.log("\n You got it right!");
+                console.log(`\n The word was ${actual}`);
             };
-
-            // //Then ask if the user wants to play again.
-            // inquire.prompt([
-            //     {
-            //         type: "confirm",
-            //         name: "playAgain",
-            //         message: "Would you like to play again?",
-            //         default: true
-            //     }
-            // ]).then(function(answer){
-            //     //If yes, a new game starts.
-            //     if(answer.playAgain){
-            //         playGame();
-            //     }
-            //     //If not, the program stops.
-            //     else{
-            //         process.exit();
-            //     }
-            // });
         };
     });
 };
 
-//Start the game when the file is called in the terminal
+//When running node index.js on terminal, the playgame function is called.
 playGame();
