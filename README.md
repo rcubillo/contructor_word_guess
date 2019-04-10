@@ -57,7 +57,7 @@ All contributions and suggestions are welcome! For direct contributions, please 
 
 ## Contact
 
-Developer/Full-stack Web Software Developer
+Full-stack Web Software Developer
    
  * E-mail: ronaldcubillo92@gmail.com
  * [Twitter](https://twitter.com/rcubillo92)
