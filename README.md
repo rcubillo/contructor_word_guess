@@ -52,11 +52,19 @@ This game meet the following criteria:
 
 ## Let's take a look
 
-
+The game starts...
 ![Log Output](Screenshots/1.png)
+
+You guess a letter...
 ![Log Output](Screenshots/2.png)
+
+When you type an incorrect letter...
 ![Log Output](Screenshots/3.png)
+
+You guess the world...
 ![Log Output](Screenshots/4.png)
+
+When you lose...
 ![Log Output](Screenshots/5.png)
 
 
