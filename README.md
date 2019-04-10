@@ -18,11 +18,11 @@
 
 This game meet the following criteria:
 
-1. The game receive user input using the `inquirer` or `prompt` npm packages.
+1. The game receive user input using the `inquirer` npm packages.
 
-2. Your solution should have, at minimum, three files:
+2. This game has three files:
 
-* **Letter.js**: Contains a constructor, Letter. This constructor should be able to either display an underlying character or a blank placeholder (such as an underscore), depending on whether or not the user has guessed the letter. That means the constructor should define:
+* **Letter.js**: Contains a constructor, Letter. This constructor display an underlying character or a blank placeholder (such as an underscore), depending on whether or not the user has guessed the letter. The constructor should define:
 
   * A string value to store the underlying character for the letter
 
@@ -46,18 +46,9 @@ This game meet the following criteria:
 
   * Prompts the user for each guess and keeps track of the user's remaining guesses
 
-3. `Letter.js` *should not* `require` any other files.
+3. `Letter.js` doesn't `require` any other files.
 
 4. `Word.js` *should only* require `Letter.js`
-
-5. **HINT:** Write `Letter.js` first and test it on its own before moving on, then do the same thing with `Word.js`
-
-6. **HINT:** If you name your letter's display function `toString`, JavaScript will call that function automatically whenever casting that object to a string (check out this example: <https://jsbin.com/facawetume/edit?js,console>)
-   
-   
-## What each command shoud do
-
-
 
 
 ## Contributing Guidelines
