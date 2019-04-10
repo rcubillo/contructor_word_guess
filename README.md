@@ -50,6 +50,15 @@ This game meet the following criteria:
 
 4. `Word.js` *should only* require `Letter.js`
 
+## Let's take a look
+
+
+![Log Output](Screenshots/1.png)
+![Log Output](Screenshots/2.png)
+![Log Output](Screenshots/3.png)
+![Log Output](Screenshots/4.png)
+![Log Output](Screenshots/5.png)
+
 
 ## Contributing Guidelines
 
